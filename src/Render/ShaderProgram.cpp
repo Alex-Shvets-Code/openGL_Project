@@ -55,7 +55,7 @@ namespace Renderer {
         if (!success)
         {
             GLchar infoLog[1024];
-            glGetProgramInfoLog(shaderID, 1024, nullptr, infoLog);
+            glGetShaderInfoLog(shaderID, 1024, nullptr, infoLog);
             std::cerr << "ERROR::SHADER: Compile-time error:\n" << infoLog << std::endl;
             return false;
         }
@@ -90,5 +90,10 @@ namespace Renderer {
 
         shaderProgram.m_ID = 0;
         shaderProgram.m_isCompiled = false;
+    }
+
+    void ShaderProgram::setInt(const std::string& name, const GLint value)
+    {
+        glUniform1i(glGetUniformLocation(m_ID, name.c_str()), value);
     }
 }
